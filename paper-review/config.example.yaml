@@ -1,0 +1,57 @@
+# config.example.yaml — shared config for /paper-review + /paper-digest
+#
+# HOW TO USE (one-time setup):
+#   1. Copy this file to `config.yaml` in this same directory
+#         cp config.example.yaml config.yaml
+#   2. Fill in YOUR values below. Anything left as a PLACEHOLDER disables that route.
+#   3. Both SKILL.md files read `config.yaml` at task start and substitute
+#      every ${section.key} token in their instructions with your value.
+#
+# `config.yaml` holds your personal paths/domains — keep it OUT of any public share
+# (add it to .gitignore). Only THIS example file ships.
+
+# ─── Vault layout ────────────────────────────────────────────────────────────
+# Where notes get written. Paths are relative to your Obsidian vault root.
+vault:
+  papers_dir: "Papers/"            # where review/digest notes go   e.g. "55論文整理/"
+  medicine_dir: "Medicine/"        # your condition notes, for vault-search linking
+  inbox_note: "Inbox/lit-inbox.md" # missing-fulltext handoff log
+  daily_section: "## Paper Review" # daily-note heading the one-line entry appends under
+                                   # (MUST match your paper-sync / daily-note convention)
+
+# ─── Review web page (self-test cards) ───────────────────────────────────────
+# /paper-digest pushes spaced-repetition cards here. Leave push_script empty to
+# disable card push entirely (the digest note still gets written).
+review_site:
+  url: "https://example.com/learn.html"   # user-facing URL reported after a push
+  push_script: ""                          # abs path to your card-push script, or "" to disable
+                                           # e.g. "/c/Users/you/paper-radar/push_review_cards.py"
+
+# ─── Full-text acquisition ───────────────────────────────────────────────────
+fulltext:
+  inbox_dir: "~/inbox/"            # where an upstream step may drop PDFs
+  zotero_local_api: true          # true = try Zotero MCP / local API (needs Zotero running)
+  elsevier_script: "elsevier_fulltext.py"   # bundled; needs an Elsevier TDM key (see SETUP.md)
+  # Institutional link-resolver (SFX/OpenURL) for subscribed full text. Leave blank to skip.
+  # {DOI} is substituted at query time.
+  sfx_base: ""                    # e.g. "https://sfx.example.edu/openurl?...&rft_id=info:doi/{DOI}"
+  institution_name: ""            # display name, e.g. "My University Library"
+
+# ─── Secrets backend ─────────────────────────────────────────────────────────
+# How the bundled scripts read API keys (Elsevier TDM, Cloudflare, …).
+#   dpapi  — Windows DPAPI store (~/.secrets/secret.ps1)  [author's setup]
+#   env    — plain environment variables
+#   none   — no secret-backed routes (Elsevier TDM / card push disabled)
+secrets:
+  backend: "env"
+
+# ─── Persona (WRITE YOUR OWN) ────────────────────────────────────────────────
+# This steers tone, clinical framing, language, and external-validity checks.
+# The author's is a Taiwan PMR physician writing 繁體中文. Replace with yours.
+persona:
+  language: "English for explanation; keep technical terms in original form"
+  specialty: "your clinical specialty, e.g. Physical Medicine & Rehabilitation"
+  audience: "who you write for, e.g. yourself + residents you teach"
+  locale: "your country/health-system, drives external-validity + coverage checks"
+  reimbursement_system: ""   # e.g. "Taiwan NHI"; blank = skip coverage lookups
+  highlight_style: "==highlight== key numbers"   # keep or adapt to your note tooling

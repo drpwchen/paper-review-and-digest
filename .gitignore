@@ -1,0 +1,4 @@
+# Personal config — never publish. Ship config.example.yaml only.
+paper-review/config.yaml
+**/__pycache__/
+*.pyc
