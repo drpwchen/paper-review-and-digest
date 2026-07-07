@@ -19,6 +19,13 @@ Reading a paper well is really two different jobs, and good readers keep them se
 
 They are independent and can both run on one paper.
 
+> **Part of a pipeline.** These skills are the *reading* end. The *discovery* end — a personal
+> literature radar that pulls dozens of journal feeds + PubMed searches, ranks them by your interest
+> model, and hands the picks off for appraisal/digest — is
+> [**paper-radar**](https://github.com/drpwchen/paper-radar). paper-radar's `/paper-sync` dispatches
+> a picked paper straight into `/paper-review` (🔬 quality) or `/paper-digest` (📚 content). Use them
+> together, or either alone.
+
 ## Why it isn't just a clever prompt
 
 Most "AI paper review" tools make two claims loosely — that they grade the evidence and that they
@@ -159,6 +166,12 @@ literature for personal study use; cite the primary sources, not this repo, in a
 | **`/paper-digest`** | *這篇講了什麼、我怎麼最快吸收？* | 教學式的內容整理，三層漸進揭露，依論文類型換骨架，最後生出主動回憶的自我測驗卡。**拿不到全文就硬停**（不做只靠摘要的假整理）。 |
 
 兩者獨立，同一篇論文可以都跑。
+
+> **這是一條 pipeline 的一端。** 這兩個 skill 負責「讀」。負責「發現」的另一端，是一個個人文獻雷達：
+> 每天抓幾十個期刊 RSS + PubMed，依你的興趣模型評分排序，把挑中的論文交棒出來評讀／整理，那就是
+> [**paper-radar 論文學習雷達**](https://github.com/drpwchen/paper-radar)。paper-radar 的
+> `/paper-sync` 會把你勾選的論文直接派給 `/paper-review`（🔬 品質）或 `/paper-digest`（📚 內容）。
+> 可以一起用，也可以各自單獨用。
 
 ## 為什麼它不只是一段厲害的 prompt
 
