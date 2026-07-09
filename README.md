@@ -281,3 +281,9 @@ paper-digest/
 
 授權：MIT（見 `LICENSE`）。內建的實證醫學／因果內容為個人學習用途的方法學文獻摘要；學術引用時請引原始出處，
 而非本 repo。
+
+## 🧋 Support
+
+If this tool saves you time, you can buy me a boba — it keeps the servers running 🧡
+
+[![Give me a Boba!](https://img.shields.io/badge/🧋_Give_me_a_Boba!-AD5138?style=for-the-badge)](https://drpwchen.bobaboba.me)
