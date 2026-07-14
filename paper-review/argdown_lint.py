@@ -182,6 +182,15 @@ def render(res: dict) -> str:
 
 
 def main() -> int:
+    # The gap banner carries 🔴/⚠️/✅; without this they raise UnicodeEncodeError on
+    # non-UTF-8 consoles (cp950 / gbk / cp932), and the crash exits 1 — indistinguishable
+    # from the "gap flagged" exit code this script signals with.
+    for _stream in (sys.stdout, sys.stderr):
+        try:
+            _stream.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+
     ap = argparse.ArgumentParser(description="Deterministic inference-gap linter.")
     ap.add_argument("input", help="path to argument-map JSON, or '-' for stdin")
     ap.add_argument("--json", action="store_true", help="emit machine-readable JSON result")

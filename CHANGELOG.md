@@ -6,6 +6,38 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.2] — 2026-07-14
+
+### Fixed
+- **`secrets.backend` is now actually honoured** (`paper-review/elsevier_fulltext.py`).
+  `SETUP.md` and `config.example.yaml` documented `env` as the cross-platform default, but the
+  script resolved keys through the Windows DPAPI store only — it never read `os.environ` and never
+  looked at `secrets.backend` at all. A user on macOS/Linux (or on Windows without
+  `~/.secrets/secret.ps1`) who exported `ELSEVIER_TDM_KEY` per the docs got a silent
+  "Elsevier full text unavailable", with nothing pointing at the backend as the cause.
+  `get_secret()` now dispatches on the backend — `env`, `dpapi`, `none`, `auto` (env, then dpapi) —
+  resolved in the order `--backend` flag > `$SECRETS_BACKEND` > `config.yaml`'s `secrets.backend` >
+  `env`. An unrecognised value falls back to `env` with a warning, so a typo can never silently
+  reach DPAPI. Only gold-OA routes were unaffected. Reported by @liangRXdev ([#2]).
+- **Scripts no longer crash on non-UTF-8 Windows consoles** (`paper-review/grade_judge.py`,
+  `paper-review/argdown_lint.py`). The GRADE certainty labels (`⊕⊕◯◯`) and the linter's gap banner
+  (`🔴 ⚠️ ✅`) raised `UnicodeEncodeError` under `cp950` (zh-TW), `gbk` (zh-CN), and `cp932` (ja-JP)
+  — which meant the sanity check in `SETUP.md` §6 failed on first run for those users. Worse,
+  `argdown_lint.py` signals through its exit code, so the crash (exit 1) was indistinguishable from
+  "gap flagged" (exit 1). Both scripts now pin `stdout`/`stderr` to UTF-8 in `main()`, guarded for
+  interpreters without `reconfigure`. `elsevier_fulltext.py` got the same guard.
+  Reported by @liangRXdev ([#3]).
+
+### Why
+Both bugs are artefacts of extracting a public release from a private, Windows-only, zh-TW setup:
+the config surface was written for everyone, but the code paths under it had only ever been
+exercised on the author's machine. Verified under a simulated `cp950` console — `SETUP.md` §6 now
+prints exactly what it promises — and the backend dispatch is covered for each of the four values,
+the typo fallback, and precedence between flag, env var, and config.
+
+[#2]: https://github.com/drpwchen/paper-review-and-digest/issues/2
+[#3]: https://github.com/drpwchen/paper-review-and-digest/issues/3
+
 ## [0.2.1] — 2026-07-14
 
 ### Changed

@@ -40,9 +40,20 @@ bundled scripts (`grade_judge.py`, `argdown_lint.py`) which are pure stdlib.
 
 Controls how bundled scripts read API keys (Elsevier TDM, and your card-push script's token):
 
-- `env` — plain environment variables (`ELSEVIER_TDM_KEY`, etc.). Simplest, cross-platform.
+- `env` — plain environment variables (`ELSEVIER_TDM_KEY`, `ELSEVIER_INSTTOKEN`). Simplest, cross-platform. **Default.**
 - `dpapi` — Windows DPAPI store via `~/.secrets/secret.ps1` (the author's setup).
 - `none` — no secret-backed routes; Elsevier TDM and any token-gated card push are disabled.
+- `auto` — try `env`, fall back to `dpapi`.
+
+Resolved in this order, first hit wins: the `--backend` flag → the `SECRETS_BACKEND` environment
+variable → `config.yaml`'s `secrets.backend` → `env`. An unrecognised value warns and falls back to
+`env`, so a typo can't silently reach a different store.
+
+```bash
+export ELSEVIER_TDM_KEY=...                          # env backend (Windows: setx)
+python elsevier_fulltext.py <DOI> out.txt            # backend from config.yaml
+python elsevier_fulltext.py <DOI> out.txt --backend dpapi   # or override per call
+```
 
 Claude is instructed never to read or print these keys.
 

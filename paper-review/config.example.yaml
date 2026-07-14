@@ -44,9 +44,11 @@ fulltext:
 
 # ─── Secrets backend ─────────────────────────────────────────────────────────
 # How the bundled scripts read API keys (Elsevier TDM, Cloudflare, …).
+#   env    — plain environment variables (ELSEVIER_TDM_KEY, ELSEVIER_INSTTOKEN)  [default]
 #   dpapi  — Windows DPAPI store (~/.secrets/secret.ps1)  [author's setup]
-#   env    — plain environment variables
 #   none   — no secret-backed routes (Elsevier TDM / card push disabled)
+#   auto   — try env, fall back to dpapi
+# Override per call with `--backend` or the SECRETS_BACKEND env var (both beat this file).
 secrets:
   backend: "env"
 

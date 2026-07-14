@@ -187,6 +187,14 @@ def render(res: dict) -> str:
 
 
 def main() -> int:
+    # The certainty labels carry ⊕/◯; without this they raise UnicodeEncodeError on
+    # non-UTF-8 consoles (cp950 / gbk / cp932), losing the authoritative value.
+    for _stream in (sys.stdout, sys.stderr):
+        try:
+            _stream.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+
     ap = argparse.ArgumentParser(description="Deterministic GRADE certainty recompute.")
     ap.add_argument("input", help="path to input JSON, or '-' for stdin")
     ap.add_argument("--json", action="store_true", help="emit machine-readable JSON result")
