@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.4] — 2026-11-14 — Docs: README quality pass
+
+### Docs
+- README (English and 繁體中文): added a Requirements & cost paragraph, a limitations bullet, a link to the blog post, and the support line; the footer is now a `## Support 支持` section.
+- Added `SECURITY.md` and `CITATION.cff`.
+- No change to the skills or scripts.
+
+- README（英文與繁體中文）：新增「需求與費用」、限制說明、部落格文章連結與支持連結；頁尾改為 `## Support 支持`。
+- 新增 `SECURITY.md`、`CITATION.cff`。
+- skill 與腳本沒有變動。
+
+
 ## [0.2.3] — 2026-08-22
 
 ### Changed

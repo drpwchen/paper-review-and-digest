@@ -8,6 +8,8 @@ Built by a practising physician for real journal-club and clinical use, then gen
 
 > **English** · [繁體中文](#繁體中文)
 
+📝 How it works and why, in plain language: [the blog post](https://drpwchen.com/en/posts/paper-tools/).
+
 ---
 
 ## What this is
@@ -103,7 +105,11 @@ See **[SETUP.md](paper-review/SETUP.md)**. In short:
 
 Then in Claude Code: `/paper-review <DOI>` or `/paper-digest <DOI>`.
 
-## Honest scope
+**Requirements & cost:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (needs a Claude subscription or API credit, which is where the cost comes from), and Python 3 for the two helper scripts (standard library only, no GPU). `/paper-digest` needs the paper's full text and stops if it cannot get it. The CrossRef existence check needs network access. The skills themselves are free (MIT).
+
+> 🧋 Saved you some time? [Buy me a drink](https://drpwchen.com/en/support/).
+
+## Honest scope & limitations
 
 This is a **reference implementation**, published as a one-time share and updated occasionally — not
 a maintained product. It grew inside one person's Obsidian + Zotero + self-hosted review-site setup;
@@ -113,6 +119,8 @@ those couplings now live behind `config.yaml`.
   RoB routing table, the CrossRef gate, and the three-layer digest method work for anyone.
 - **Yours to fill in:** vault paths, your library's full-text resolver, an optional review-card
   site, your clinical persona.
+
+- **Limitations:** `/paper-digest` needs full text (no abstract-only digests); the LLM still does the semantic judgement, so the appraisal is a second reader, not ground truth; the full-text resolver, vault paths and review-card site are yours to configure; published as a reference implementation, not a maintained product.
 
 **Not medical advice; not a replacement for reading the paper.** It is a structured second reader
 that refuses to let a plausible-but-wrong appraisal stand.
@@ -157,6 +165,8 @@ literature for personal study use; cite the primary sources, not this repo, in a
 為自己的 journal club 與臨床決策打造，再抽掉私人設定後對外分享。
 
 > [English](#paper-review--paper-digest) · **繁體中文**
+
+📝 設計動機與運作方式：[部落格文章](https://drpwchen.com/posts/paper-tools/)。
 
 ## 這是什麼
 
@@ -242,7 +252,11 @@ echo '{"claim":"Drug lowers fractures","claim_type":"hard_endpoint","premises":[
 
 然後在 Claude Code 裡：`/paper-review <DOI>` 或 `/paper-digest <DOI>`。
 
-## 誠實的定位
+**需求與費用：** [Claude Code](https://docs.anthropic.com/en/docs/claude-code)（需要 Claude 訂閱或 API 額度，費用主要來自這裡）；兩支輔助腳本只需 Python 3 標準庫，不需要 GPU。`/paper-digest` 需要論文全文，拿不到就會停下來；CrossRef 存在性檢查需要網路。skill 本身免費（MIT）。
+
+> 🧋 省了你時間的話，[請我喝杯飲料](https://drpwchen.com/support/)。
+
+## 誠實的定位與限制
 
 這是一個 **reference implementation（參考實作）**，以一次性分享的形式釋出、偶爾更新，不是一個持續維護的
 產品。它長在某個人的 Obsidian + Zotero + 自架複習網站上，這些耦合現在都收進 `config.yaml` 了。
@@ -250,6 +264,8 @@ echo '{"claim":"Drug lowers fractures","claim_type":"hard_endpoint","premises":[
 - **可移植、零依賴**：`grade_judge.py`、`argdown_lint.py`、`causal-appraisal.md`、RoB 路由表、
   CrossRef gate、三層整理法，對誰都能用。
 - **要你自己填**：vault 路徑、你所屬機構的全文解析器、選用的複習卡網站、你的臨床 persona。
+
+- **限制：** `/paper-digest` 需要全文（不做只看摘要的整理）；語意判斷仍由 LLM 負責，所以評讀是「第二讀者」而不是標準答案；全文解析器、vault 路徑與複習卡網站要你自己設定；定位是參考實作，不是持續維護的產品。
 
 **這不是醫療建議，也不能取代你自己讀論文。** 它是一個會拒絕讓「看起來有道理但其實錯了」的評讀過關的第二讀者。
 
@@ -282,11 +298,9 @@ paper-digest/
 授權：MIT（見 `LICENSE`）。內建的實證醫學／因果內容為個人學習用途的方法學文獻摘要；學術引用時請引原始出處，
 而非本 repo。
 
-## 🧋 Support
+## Support 支持
 
-If this tool saves you time, you can buy me a boba — it keeps the servers running 🧡
-
-<a href="https://drpwchen.bobaboba.me"><img src="https://s3.ap-southeast-1.amazonaws.com/media.anyonelab.com/images/boba/boba-embed-icon.png" height="36" alt="boba icon" align="middle"> <img src="https://img.shields.io/badge/BUY_ME_A_BOBA-F8E0BE?style=for-the-badge" height="36" alt="BUY ME A BOBA" align="middle"></a>
+If this saved you time, you can [buy me a drink](https://drpwchen.com/en/support/) 🧋 ／ 省了你時間的話，歡迎[請我喝杯飲料](https://drpwchen.com/support/)。
 
 ---
 
